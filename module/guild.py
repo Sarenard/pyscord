@@ -65,6 +65,8 @@ class Guild:
             self.public_updates_channel_id = self.guild["public_updates_channel_id"]
             self.nsfw = self.guild["nsfw"]
             self.nsfw_level = self.guild["nsfw_level"]
+        if type == 3: #get de base
+            self.raw = input
 
 class Guilds():
     def __init__(self, liste):
