@@ -1,4 +1,5 @@
 import requests
+import channels
 import ast
 
 import guild
@@ -24,3 +25,7 @@ class Client():
     def getguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"
         return guild.Guild(requests.get(url, headers=self.basic_header).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
+    
+    def getchannel(self, id):
+        url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
+        return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)

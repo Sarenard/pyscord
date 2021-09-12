@@ -1,4 +1,5 @@
 import requests
+import channels
 import pyscord
 import sys
 
@@ -75,6 +76,13 @@ class Guild:
             raise Exception(f"Le bot ne peut pas supprimer le serveur {self.id}, il n'en est pas l'owner")
         else:
             return True
+    def getchannels(self):
+        url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}/channels"
+        return channels.Channels(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
+    def getchannel(self, id):
+        url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
+        return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
+        
 
 class Guilds():
     def __init__(self, liste, basic_header, api_version=9):
