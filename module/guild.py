@@ -1,23 +1,23 @@
+import requests
 import pyscord
 import json
 import sys
 
 class Guild:
-    def __init__(self, input, type=0):
+    def __init__(self, input, basic_header, type=0, api_version=9):
+        self.basic_header = basic_header
+        self.api_version = api_version
+        self.guild = input
+        self.raw = input
+        self.id = self.guild["id"]
+        self.type = type
         if type == 0: #normal
-            print(input)
-            self.guild = input
-            self.raw = input
-            self.id = self.guild["id"]
             self.name = self.guild["name"]
             self.icon = self.guild["icon"]
             self.owner = self.guild["owner"]
             self.permissions = self.guild["permissions"]
             self.features = self.guild["features"]
         if type == 1: #preview
-            self.guild = input
-            self.raw = input
-            self.id = self.guild["id"]
             self.name = self.guild["name"]
             self.icon = self.guild["icon"]
             self.description = self.guild["description"]
@@ -28,9 +28,6 @@ class Guild:
             self.approximate_presence_count = self.guild["approximate_presence_count"]
             self.emojis = self.guild["emojis"]
         if type == 2: #get de base
-            self.guild = input
-            self.raw = input
-            self.id = self.guild["id"]
             self.name = self.guild["name"]
             self.icon = self.guild["icon"]
             self.description = self.guild["description"]
@@ -67,10 +64,18 @@ class Guild:
             self.nsfw_level = self.guild["nsfw_level"]
         if type == 3: #get de base
             self.raw = input
+    def getpreview(self):
+        url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}/preview"
+        return Guild(json.loads(requests.get(url, headers=self.basic_header).text), type=1, api_version=self.api_version, basic_header=self.basic_header)
+    def modify(self, json):
+        url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
+        return Guild(requests.patch(url, headers=self.basic_header, json=json).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
 
 class Guilds():
-    def __init__(self, liste):
+    def __init__(self, liste, basic_header, api_version=9):
         self.liste = liste
+        self.api_version = api_version
+        self.basic_header = basic_header
     def getid(self, name):
         """
         récupère l'id d'un serveur a partir d'un nom, et si il y en a pas raise une Exception
@@ -86,7 +91,7 @@ class Guilds():
         """
         for element in self.liste:
             if element["id"] == str(id):
-                return Guild(element, 0)
+                return Guild(element, type=0, api_version=self.api_version, basic_header=self.basic_header)
         else:
             raise Exception("Il n'y a pas de serveurs avec cet id !")
     def getnames(self):
