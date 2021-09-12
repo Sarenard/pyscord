@@ -1,6 +1,9 @@
 import requests
 import channels
+import messages
 import pyscord
+import general
+import user
 import sys
 
 class Guild:
