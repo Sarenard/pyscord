@@ -5,11 +5,9 @@ import pyscord
 import general
 
 class User:
-    def __init__(self, user, basic_header, api_version=9):
+    def __init__(self, user):
         self.raw = user
         self.item = user
-        self.api_version = api_version
-        self.basic_header = basic_header
         self.id = general.essai_element(user, "id")
         self.username = general.essai_element(user, "username")
         self.avatar = general.essai_element(user, "avatar")

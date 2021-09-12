@@ -6,16 +6,13 @@ import guild
 import user
 
 class Message:
-    def __init__(self, message, basic_header, api_version=9):
-        self.basic_header = basic_header
-        self.api_version = api_version
-        
+    def __init__(self, message):
         self.raw = message
         self.id = message["id"]
         self.type = message["type"]
         self.content = message["content"]
         self.channel_id = message["channel_id"]
-        self.author = user.User(message["author"], basic_header=self.basic_header, api_version=self.api_version)
+        self.author = user.User(message["author"])
         self.attachments = message["attachments"]
         self.embeds = message["embeds"]
         self.mentions = message["mentions"]

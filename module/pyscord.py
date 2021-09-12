@@ -1,9 +1,13 @@
 import requests
+import listener
 import channels
 import messages
 import general
 import user
+import time
 import ast
+import sys
+import os
 
 import guild
 
@@ -12,6 +16,7 @@ class Client():
         self.token = token
         self.basic_header = {"Authorization": f"Bot {self.token}"}
         self.api_version = api_version
+        self.listener = listener.Listener()
         
     def deleteguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"
@@ -32,3 +37,13 @@ class Client():
     def getchannel(self, id):
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
         return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
+
+    def run(self):
+        self.listener.start()
+        try:
+            while True:
+                time.sleep(0.1)
+        except KeyboardInterrupt:
+            self.listener.stop()
+            print("arret du bot")
+            os._exit(1)
