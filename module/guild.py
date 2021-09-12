@@ -69,6 +69,12 @@ class Guild:
     def modify(self, json):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
         return Guild(requests.patch(url, headers=self.basic_header, json=json).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
+    def delete(self):
+        url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
+        if requests.delete(url, headers=self.basic_header).json() == {'message': 'Missing Access', 'code': 50001}:
+            raise Exception(f"Le bot ne peut pas supprimer le serveur {self.id}, il n'en est pas l'owner")
+        else:
+            return True
 
 class Guilds():
     def __init__(self, liste, basic_header, api_version=9):
