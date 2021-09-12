@@ -1,6 +1,5 @@
 import requests
 import pyscord
-import json
 import sys
 
 class Guild:
@@ -66,7 +65,7 @@ class Guild:
             self.raw = input
     def getpreview(self):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}/preview"
-        return Guild(json.loads(requests.get(url, headers=self.basic_header).text), type=1, api_version=self.api_version, basic_header=self.basic_header)
+        return Guild(requests.get(url, headers=self.basic_header).json(), type=1, api_version=self.api_version, basic_header=self.basic_header)
     def modify(self, json):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
         return Guild(requests.patch(url, headers=self.basic_header, json=json).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
