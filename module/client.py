@@ -51,5 +51,5 @@ class Client():
                 time.sleep(0.1)
         except KeyboardInterrupt:
             self.listener.stop()
-            print("arret du bot")
+            print("Arret du bot")
             os._exit(1)
