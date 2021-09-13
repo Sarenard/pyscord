@@ -16,7 +16,7 @@ class Client():
         self.token = token
         self.basic_header = {"Authorization": f"Bot {self.token}"}
         self.api_version = api_version
-        self.listener = listener.Listener()
+        self.listener = listener.Listener(self.token)
         
     def deleteguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"

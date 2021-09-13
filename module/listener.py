@@ -19,8 +19,8 @@ def event_message(function_to_decorate=None, event=None):
             pass
 
 class Listener:
-    def __init__(self):
-        pass
+    def __init__(self, token):
+        self.token = token
 
     def send_json_request(ws, request):
         ws.send(json.dumps(request))
@@ -43,9 +43,9 @@ class Listener:
         return event
 
     def identify(ws):
-        Listener.send_json_request(ws,{"op": 2, "d": {"token": "ODc3NTY4Njc0NjY2NTI0Njgy.YR0hhA.qahcocZ66Ic7dQk8mgXLvwt4kK8", "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
+        Listener.send_json_request(ws,{"op": 2, "d": {"token": self.token, "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
         event = Listener.recieve_json_response(ws)
-        if (event != None): print("Bot is ready") 
+        if (event != None): print("Bot is ready")
         return event
 
     def listener(ws):
