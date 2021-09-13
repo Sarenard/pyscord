@@ -42,7 +42,7 @@ class Listener:
         thread = threading.Thread(target=Listener.heartbeat, args=(heartbeat_interval,ws)).start()
         return event
 
-    def identify(ws):
+    def identify(self,ws):
         Listener.send_json_request(ws,{"op": 2, "d": {"token": self.token, "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
         event = Listener.recieve_json_response(ws)
         if (event != None): print("Bot is ready")
@@ -58,7 +58,7 @@ class Listener:
         global ws
         ws = websocket.WebSocket()
         Hello_event= Listener.connect(ws,"wss://gateway.discord.gg")
-        Ready_event = Listener.identify(ws)
+        Ready_event = self.identify(ws)
         thread2 = threading.Thread(target=Listener.listener, args=(ws,)).start()
 
     def stop(self):
