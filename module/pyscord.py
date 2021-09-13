@@ -3,13 +3,13 @@ import listener
 import channels
 import messages
 import general
+import guild
 import user
 import time
 import ast
 import sys
 import os
 
-import guild
 
 class Client():
     def __init__(self, token, api_version=9):
@@ -37,6 +37,11 @@ class Client():
     def getchannel(self, id):
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
         return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
+    
+    def sendmessage(self, id, content, json={}):
+        if json == {} : json = {"content" : content}
+        url = f"https://discord.com/api/v{self.api_version}/channels/{id}/messages"
+        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json())
 
     def run(self):
         self.listener.start()

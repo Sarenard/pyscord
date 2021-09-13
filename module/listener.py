@@ -18,6 +18,10 @@ def event_message(function_to_decorate=None, event=None):
         except:
             pass
 
+def event_on_ready(function_to_decorate=None):
+    if function_to_decorate == None : return
+    function_to_decorate()
+
 class Listener:
     def __init__(self, token):
         self.token = token
@@ -45,7 +49,7 @@ class Listener:
     def identify(self,ws):
         Listener.send_json_request(ws,{"op": 2, "d": {"token": self.token, "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
         event = Listener.recieve_json_response(ws)
-        if (event != None): print("Bot is ready")
+        if (event != None): event_on_ready()
         return event
 
     def listener(ws):
