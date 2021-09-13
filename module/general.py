@@ -1,7 +1,7 @@
 import channels
 import messages
 import requests
-import pyscord
+import client
 import user
 
 def essai_element(item, element):

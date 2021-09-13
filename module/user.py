@@ -1,7 +1,7 @@
 import requests
 import channels
 import messages
-import pyscord
+import client
 import general
 
 class User:

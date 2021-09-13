@@ -1,6 +1,6 @@
 import requests
 import channels
-import pyscord
+import client
 import general
 import guild
 import user
