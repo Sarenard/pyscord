@@ -1,4 +1,4 @@
 /__pycache__/
 /module/__pycache__/
-/module/modules/__pycache__/
 /module/test.py
+/module/test*.py
