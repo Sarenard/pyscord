@@ -24,4 +24,4 @@ class Message:
         self.edited_timestamp = message["edited_timestamp"]
         self.flags = message["flags"]
         self.components = message["components"]
-        self.referenced_message = message["referenced_message"]
+        self.referenced_message = general.essai_element(message, "referenced_message")

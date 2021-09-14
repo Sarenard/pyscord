@@ -18,9 +18,16 @@ def event_message(function_to_decorate=None, event=None):
         except:
             pass
 
+global func2
+func2 = None
 def event_on_ready(function_to_decorate=None):
-    if function_to_decorate == None : return
-    function_to_decorate()
+    global func2
+    if function_to_decorate != None:
+        func2 = function_to_decorate
+        try:
+            func2()
+        except:
+            pass
 
 class Listener:
     def __init__(self, token):
@@ -47,6 +54,7 @@ class Listener:
         return event
 
     def identify(self,ws):
+        #TODO : implemernter indents dans Client() (client.py)
         Listener.send_json_request(ws,{"op": 2, "d": {"token": self.token, "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
         event = Listener.recieve_json_response(ws)
         if (event != None): event_on_ready()

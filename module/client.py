@@ -43,6 +43,11 @@ class Client():
         if json == {} : json = {"content" : content}
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}/messages"
         return messages.Message(requests.post(url, headers=self.basic_header, json=json).json())
+    
+    def reply(self, message, content, json={}):
+        if json == {} : json = {"content" : content}
+        url = f"https://discord.com/api/v{self.api_version}/channels/{message.channel_id}/messages"
+        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json())
 
     def run(self):
         self.listener.start()

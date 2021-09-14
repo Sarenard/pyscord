@@ -8,4 +8,4 @@ def essai_element(item, element):
     try:
         return item[element]
     except:
-        pass
+        return None
