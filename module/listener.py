@@ -58,7 +58,7 @@ class Listener:
         return event
 
     def identify(self,ws):
-        #TODO : implemernter indents dans Client() (client.py)
+        #TODO : implementer indents dans Client() (client.py)
         Listener.send_json_request(ws,{"op": 2, "d": {"token": self.token, "intents": 32767, "properties": { "$os": "windows", "$browser": "chrome", "$device": "pc"}}})
         event = Listener.recieve_json_response(ws)
         if (event != None): event_on_ready()
@@ -69,6 +69,18 @@ class Listener:
             event = Listener.recieve_json_response(ws)
             if event == None : return
             if event["t"] == "MESSAGE_CREATE" : event_message(event=event)
+            elif event["op"]== 7: resume(ws)
+
+    def resume(ws):
+        payload = { "op": 6, "d": {"token": globals.token, "session_id": global_vars.bot_session_id, "seq": global_vars.s}}
+        send_json_request(ws,payload)
+        event = recieve_json_response(ws)
+        if event["op"] == 9:
+            print("Connection died. Attempting re-identify")
+            identify(ws)
+        else:
+            print(event)
+        return event
 
     def start(self):
         global ws
