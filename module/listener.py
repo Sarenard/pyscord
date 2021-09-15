@@ -76,11 +76,8 @@ class Listener:
         send_json_request(ws,payload)
         event = recieve_json_response(ws)
         if event["op"] == 9:
-            print("Connection died. Attempting re-identify")
+            print("Perte de connection, tentative de reconnection")
             identify(ws)
-        else:
-            print(event)
-        return event
 
     def start(self):
         global ws
