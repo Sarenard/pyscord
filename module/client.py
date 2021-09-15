@@ -17,7 +17,7 @@ class Client():
         self.token = token
         self.basic_header = {"Authorization": f"Bot {self.token}"}
         self.api_version = api_version
-        self.listener = listener.Listener(self.token)
+        self.listener = listener.Listener(self.token, basic_head=self.basic_header, api_ver=self.api_version)
         
     def deleteguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"
@@ -37,17 +37,21 @@ class Client():
     
     def getchannel(self, id):
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
-        return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
+        return channels.Channel(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
+
+    def getuser(self, id):
+        url = f"https://discord.com/api/v{self.api_version}/users/{user.id}"
+        return user.User(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     
     def sendmessage(self, id, content, json={}):
         if json == {} : json = {"content" : content}
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}/messages"
-        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json())
+        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
     
     def reply(self, message, content, json={}):
         if json == {} : json = {"content" : content}
         url = f"https://discord.com/api/v{self.api_version}/channels/{message.channel_id}/messages"
-        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json())
+        return messages.Message(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
     def run(self):
         self.listener.start()

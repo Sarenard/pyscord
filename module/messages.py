@@ -6,12 +6,15 @@ import guild
 import user
 
 class Message:
-    def __init__(self, message):
+    def __init__(self, message, basic_header=None, api_version=9):
+        self.basic_header = basic_header
+        self.api_version = api_version
+
         self.raw = message
         self.id = general.essai_element(message, "id")
         self.channel_id = general.essai_element(message, "channel_id")
         self.guild_id = general.essai_element(message, "guild_id")
-        self.author = user.User(general.essai_element(message, "author"))
+        self.author = user.User(general.essai_element(message, "author"), api_version=self.api_version, basic_header=self.basic_header)
         self.member = general.essai_element(message, "member")
         self.content = general.essai_element(message, "content")
         self.timestamp = general.essai_element(message, "timestamp")

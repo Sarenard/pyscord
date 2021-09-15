@@ -11,11 +11,11 @@ func=None
 def event_message(function_to_decorate=None, event=None):
     global func
     if event == {} : return
-    if func != None: asyncio.run(func(messages.Message(event['d'])))
+    if func != None: asyncio.run(func(messages.Message(event['d'], api_version=api_version, basic_header=basic_header)))
     if function_to_decorate != None:
         func = function_to_decorate
         try:
-            asyncio.run(func(messages.Message(event['d'])))
+            asyncio.run(func(messages.Message(event['d'], api_version=api_version, basic_header=basic_header)))
         except:
             pass
 
@@ -31,7 +31,10 @@ def event_on_ready(function_to_decorate=None):
             pass
 
 class Listener:
-    def __init__(self, token):
+    def __init__(self, token, basic_head=None, api_ver=9):
+        global basic_header, api_version
+        basic_header = basic_head
+        api_version = api_ver
         self.token = token
 
     def send_json_request(ws, request):

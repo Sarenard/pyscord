@@ -66,7 +66,6 @@ class Guild:
         self.stickers = general.essai_element(guild, "stickers")
 
     def getpreview(self):
-
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}/preview"
         return Guild(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     def modify(self, json):
