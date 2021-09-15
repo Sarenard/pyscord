@@ -78,6 +78,8 @@ class Listener:
         if event["op"] == 9:
             print("Perte de connection, tentative de reconnection")
             identify(ws)
+        else:
+            print("Perte de connection irrémédiable")
 
     def start(self):
         global ws
