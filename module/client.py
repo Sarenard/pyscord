@@ -25,7 +25,7 @@ class Client():
 
     def createguild(self, name):
         url = f"https://discord.com/api/v{self.api_version}/guilds"
-        return guild.Guild(requests.post(url, headers=self.basic_header, json=json).json(), type=3, api_version=self.api_version, basic_header=self.basic_header)
+        return guild.Guild(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
     def getguilds(self):
         url = f"https://discord.com/api/v{self.api_version}/users/@me/guilds"
@@ -33,7 +33,7 @@ class Client():
     
     def getguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"
-        return guild.Guild(requests.get(url, headers=self.basic_header).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
+        return guild.Guild(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     
     def getchannel(self, id):
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}"

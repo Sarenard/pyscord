@@ -7,72 +7,70 @@ import user
 import sys
 
 class Guild:
-    def __init__(self, input, basic_header, type=0, api_version=9):
+    def __init__(self, guild, basic_header, api_version=9):
         self.basic_header = basic_header
         self.api_version = api_version
-        self.guild = input
-        self.raw = input
-        self.id = self.guild["id"]
-        self.type = type
-        if type == 0: #normal
-            self.name = self.guild["name"]
-            self.icon = self.guild["icon"]
-            self.owner = self.guild["owner"]
-            self.permissions = self.guild["permissions"]
-            self.features = self.guild["features"]
-        if type == 1: #preview
-            self.name = self.guild["name"]
-            self.icon = self.guild["icon"]
-            self.description = self.guild["description"]
-            self.splash = self.guild["splash"]
-            self.discovery_splash = self.guild["discovery_splash"]
-            self.features = self.guild["features"]
-            self.approximate_member_count = self.guild["approximate_member_count"]
-            self.approximate_presence_count = self.guild["approximate_presence_count"]
-            self.emojis = self.guild["emojis"]
-        if type == 2: #get de base
-            self.name = self.guild["name"]
-            self.icon = self.guild["icon"]
-            self.description = self.guild["description"]
-            self.splash = self.guild["splash"]
-            self.discovery_splash = self.guild["discovery_splash"]
-            self.features = self.guild["features"]
-            self.emojis = self.guild["emojis"]
-            self.stickers = self.guild["stickers"]
-            self.banner = self.guild["banner"]
-            self.owner_id = self.guild["owner_id"]
-            self.application_id = self.guild["application_id"]
-            self.region = self.guild["region"]
-            self.afk_channel_id = self.guild["afk_channel_id"]
-            self.afk_timeout = self.guild["afk_timeout"]
-            self.system_channel_id = self.guild["system_channel_id"]
-            self.widget_enabled = self.guild["widget_enabled"]
-            self.widget_channel_id = self.guild["widget_channel_id"]
-            self.verification_level = self.guild["verification_level"]
-            self.roles = self.guild["roles"]
-            self.default_message_notifications = self.guild["default_message_notifications"]
-            self.mfa_level = self.guild["mfa_level"]
-            self.explicit_content_filter = self.guild["explicit_content_filter"]
-            self.max_presences = self.guild["max_presences"]
-            self.max_members = self.guild["max_members"]
-            self.max_video_channel_users = self.guild["max_video_channel_users"]
-            self.vanity_url_code = self.guild["vanity_url_code"]
-            self.premium_tier = self.guild["premium_tier"]
-            self.premium_subscription_count = self.guild["premium_subscription_count"]
-            self.system_channel_flags = self.guild["system_channel_flags"]
-            self.preferred_locale = self.guild["preferred_locale"]
-            self.rules_channel_id = self.guild["rules_channel_id"]
-            self.public_updates_channel_id = self.guild["public_updates_channel_id"]
-            self.nsfw = self.guild["nsfw"]
-            self.nsfw_level = self.guild["nsfw_level"]
-        if type == 3: #get de base
-            self.raw = input
+        self.raw = guild
+        self.guild = guild
+
+        self.id = general.essai_element(guild, "id")
+        self.name = general.essai_element(guild, "name")
+        self.icon = general.essai_element(guild, "icon")
+        self.icon_hash = general.essai_element(guild, "icon_hash")
+        self.splash = general.essai_element(guild, "splash")
+        self.discovery_splash = general.essai_element(guild, "discovery_splash")
+        self.owner = general.essai_element(guild, "owner")
+        self.owner_id = general.essai_element(guild, "owner_id")
+        self.permissions = general.essai_element(guild, "permissions")
+        self.region = general.essai_element(guild, "region")
+        self.afk_channel_id = general.essai_element(guild, "afk_channel_id")
+        self.afk_timeout = general.essai_element(guild, "afk_timeout")
+        self.widget_enabled = general.essai_element(guild, "widget_enabled")
+        self.widget_channel_id = general.essai_element(guild, "widget_channel_id")
+        self.verification_level = general.essai_element(guild, "verification_level")
+        self.default_message_notifications = general.essai_element(guild, "default_message_notifications")
+        self.explicit_content_filter = general.essai_element(guild, "explicit_content_filter")
+        self.roles = general.essai_element(guild, "roles")
+        self.emojis = general.essai_element(guild, "emojis")
+        self.features = general.essai_element(guild, "features")
+        self.mfa_level = general.essai_element(guild, "mfa_level")
+        self.application_id = general.essai_element(guild, "application_id")
+        self.system_channel_id = general.essai_element(guild, "system_channel_id")
+        self.system_channel_flags = general.essai_element(guild, "system_channel_flags")
+        self.rules_channel_id = general.essai_element(guild, "rules_channel_id")
+        self.joined_at = general.essai_element(guild, "joined_at")
+        self.large = general.essai_element(guild, "large")
+        self.unavailable = general.essai_element(guild, "unavailable")
+        self.member_count = general.essai_element(guild, "member_count")
+        self.voice_states = general.essai_element(guild, "voice_states")
+        self.members = general.essai_element(guild, "members")
+        self.channels = general.essai_element(guild, "channels")
+        self.threads = general.essai_element(guild, "threads")
+        self.presences = general.essai_element(guild, "presences")
+        self.max_presences = general.essai_element(guild, "max_presences")
+        self.max_members = general.essai_element(guild, "max_members")
+        self.vanity_url_code = general.essai_element(guild, "vanity_url_code")
+        self.description = general.essai_element(guild, "description")
+        self.banner = general.essai_element(guild, "banner")
+        self.premium_tier = general.essai_element(guild, "premium_tier")
+        self.premium_subscription_count = general.essai_element(guild, "premium_subscription_count")
+        self.preferred_locale = general.essai_element(guild, "preferred_locale")
+        self.public_updates_channel_id = general.essai_element(guild, "public_updates_channel_id")
+        self.max_video_channel_users = general.essai_element(guild, "max_video_channel_users")
+        self.approximate_member_count = general.essai_element(guild, "approximate_member_count")
+        self.approximate_presence_count = general.essai_element(guild, "approximate_presence_count")
+        self.welcome_screen = general.essai_element(guild, "welcome_screen")
+        self.nsfw_level = general.essai_element(guild, "nsfw_level")
+        self.stage_instances = general.essai_element(guild, "stage_instances")
+        self.stickers = general.essai_element(guild, "stickers")
+
     def getpreview(self):
+
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}/preview"
-        return Guild(requests.get(url, headers=self.basic_header).json(), type=1, api_version=self.api_version, basic_header=self.basic_header)
+        return Guild(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     def modify(self, json):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
-        return Guild(requests.patch(url, headers=self.basic_header, json=json).json(), type=2, api_version=self.api_version, basic_header=self.basic_header)
+        return Guild(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
     def delete(self):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{self.id}"
         if requests.delete(url, headers=self.basic_header).json() == {'message': 'Missing Access', 'code': 50001}:
@@ -107,7 +105,7 @@ class Guilds():
         """
         for element in self.liste:
             if element["id"] == str(id):
-                return Guild(element, type=0, api_version=self.api_version, basic_header=self.basic_header)
+                return Guild(element, api_version=self.api_version, basic_header=self.basic_header)
         else:
             raise Exception("Il n'y a pas de serveurs avec cet id !")
     def getnames(self):
