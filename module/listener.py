@@ -2,6 +2,7 @@ import threading
 import websocket
 import requests
 import messages
+import asyncio
 import json
 import time
 
@@ -10,11 +11,11 @@ func=None
 def event_message(function_to_decorate=None, event=None):
     global func
     if event == {} : return
-    if func != None: func(messages.Message(event['d']))
+    if func != None: asyncio.run(func(messages.Message(event['d'])))
     if function_to_decorate != None:
         func = function_to_decorate
         try:
-            func(messages.Message(event['d']))
+            asyncio.run(func(messages.Message(event['d'])))
         except:
             pass
 
@@ -25,7 +26,7 @@ def event_on_ready(function_to_decorate=None):
     if function_to_decorate != None:
         func2 = function_to_decorate
         try:
-            func2()
+            asyncio.run(func2())
         except:
             pass
 
