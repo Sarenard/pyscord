@@ -17,6 +17,3 @@ class User:
         self.public_flags = general.essai_element(user, "public_flags")
         self.bot = general.essai_element(user, "bot")
         self.name = self.username + "#" + self.discriminator if self.username != None and self.discriminator != None else None
-    def modify(self, json):
-        url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return User(requests.patch(url, headers=self.basic_header, json=json).json())

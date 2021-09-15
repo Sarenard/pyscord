@@ -53,6 +53,18 @@ class Client():
         url = f"https://discord.com/api/v{self.api_version}/channels/{message.channel_id}/messages"
         return messages.Message(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
+    def modify(self, json):
+        url = f"https://discord.com/api/v{self.api_version}/users/@me"
+        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+    def changename(self, name):
+        json = {"username" : name}
+        url = f"https://discord.com/api/v{self.api_version}/users/@me"
+        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+    def changeavatar(self, avatar):
+        json = {"avatar" : avatar}
+        url = f"https://discord.com/api/v{self.api_version}/users/@me"
+        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+
     def run(self):
         self.listener.start()
         try:
