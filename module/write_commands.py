@@ -35,9 +35,8 @@ def interpreter(commande):
     global data
     if commande.startswith("/serveur"):
         change_serveur()
-    if commande.startswith("/send"):
-        message = commande.replace("/send ", "")
-        bot.sendmessage(data["chanid"], message)
+    else:
+        bot.sendmessage(data["chanid"], commande)
         
 
 
