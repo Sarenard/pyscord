@@ -7,13 +7,14 @@ import guild
 import user
 
 class Channel:
-    def __init__(self, item, basic_header, api_version=9):
+    def __init__(self, item, basic_header=None, api_version=9):
         self.basic_header = basic_header
         self.api_version = api_version
 
         self.raw = item
         self.item = item
         self.id = general.essai_element(item, "id")
+        self.name = general.essai_element(item, "name")
     def sendmessage(self, content, json={}):
         if json == {} : json = {"content" : content}
         url = f"https://discord.com/api/v{self.api_version}/channels/{self.id}/messages"

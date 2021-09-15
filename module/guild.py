@@ -47,6 +47,8 @@ class Guild:
         self.voice_states = general.essai_element(guild, "voice_states")
         self.members = general.essai_element(guild, "members")
         self.channels = general.essai_element(guild, "channels")
+        try: self.channels = [channels.Channel(role, basic_header=self.basic_header, api_version=self.api_version) for channel in general.essai_element(guild, "channels")]
+        except: pass
         self.threads = general.essai_element(guild, "threads")
         self.presences = general.essai_element(guild, "presences")
         self.max_presences = general.essai_element(guild, "max_presences")
