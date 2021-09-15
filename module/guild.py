@@ -3,6 +3,7 @@ import channels
 import messages
 import client
 import general
+import roles
 import user
 import sys
 
@@ -30,7 +31,7 @@ class Guild:
         self.verification_level = general.essai_element(guild, "verification_level")
         self.default_message_notifications = general.essai_element(guild, "default_message_notifications")
         self.explicit_content_filter = general.essai_element(guild, "explicit_content_filter")
-        self.roles = general.essai_element(guild, "roles")
+        self.roles = [roles.Role(role) for role in general.essai_element(guild, "roles")]
         self.emojis = general.essai_element(guild, "emojis")
         self.features = general.essai_element(guild, "features")
         self.mfa_level = general.essai_element(guild, "mfa_level")
