@@ -54,7 +54,7 @@ class Listener:
         ws.connect(f'{wss_url}/?v=9&encoding=json')
         event = Listener.recieve_json_response(ws)
         heartbeat_interval = event['d']['heartbeat_interval'] / 1000
-        thread = threading.Thread(target=Listener.heartbeat, args=(heartbeat_interval,ws)).start()
+        threading.Thread(target=Listener.heartbeat, args=(heartbeat_interval,ws)).start()
         return event
 
     def identify(self,ws):
@@ -69,9 +69,9 @@ class Listener:
             event = Listener.recieve_json_response(ws)
             if event == None : return
             if event["t"] == "MESSAGE_CREATE" : event_message(event=event)
-            elif event["op"]== 7: resume(ws)
+            if event["op"]== 7: reconnection(ws)
 
-    def resume(ws):
+    def reconnection(ws):
         payload = { "op": 6, "d": {"token": globals.token, "session_id": global_vars.bot_session_id, "seq": global_vars.s}}
         send_json_request(ws,payload)
         event = recieve_json_response(ws)
@@ -82,9 +82,9 @@ class Listener:
     def start(self):
         global ws
         ws = websocket.WebSocket()
-        Hello_event= Listener.connect(ws,"wss://gateway.discord.gg")
-        Ready_event = self.identify(ws)
-        thread2 = threading.Thread(target=Listener.listener, args=(ws,)).start()
+        Listener.connect(ws,"wss://gateway.discord.gg")
+        self.identify(ws)
+        threading.Thread(target=Listener.listener, args=(ws,)).start()
 
     def stop(self):
         global ws
