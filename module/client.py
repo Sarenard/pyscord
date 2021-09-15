@@ -4,6 +4,7 @@ import listener
 import channels
 import messages
 import general
+import invite
 import guild
 import user
 import time
@@ -21,9 +22,11 @@ class Client():
         
     def deleteguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"
-        return requests.delete(url, headers=self.basic_header)
+        requests.delete(url, headers=self.basic_header)
+        return True
 
     def createguild(self, name):
+        json = {"name" : name}
         url = f"https://discord.com/api/v{self.api_version}/guilds"
         return guild.Guild(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
@@ -55,15 +58,21 @@ class Client():
 
     def modify(self, json):
         url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+        return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
+
     def changename(self, name):
         json = {"username" : name}
         url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+        return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
+        
     def changeavatar(self, avatar):
         json = {"avatar" : avatar}
         url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return User(requests.patch(url, headers=self.basic_header, json=json).json())
+        return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
+
+    def createinvite(self, channel_id, json={}):
+        url = f"https://discord.com/api/v{self.api_version}/channels/{channel_id}/invites"
+        return invite.Invite(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
     def run(self):
         self.listener.start()
