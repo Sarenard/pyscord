@@ -37,7 +37,8 @@ while True:
     commande = input("COMMANDE >>> ")
     if commande.startswith("/serveur"):
         change_serveur()
-<<<<<<< Updated upstream
+    elif chmmande.startswith("/"):
+        pass
     else:
         bot.sendmessage(data["chanid"], commande)
         
@@ -45,11 +46,5 @@ while True:
 
 while True:
     interpreter(input("COMMANDE >>> "))
-=======
-    elif commande.startswith("/"): 
-        pass
-    else:
-        bot.sendmessage(data["chanid"], commande)
->>>>>>> Stashed changes
 
 bot.run()
