@@ -10,7 +10,7 @@ async def on_ready():
 @pyscord.listener.event_message
 async def on_message(message):
     if message.content.startswith("/print"):
-        bot.reply(message, message.content.replace("/print", ""))
+        bot.reply(message, message.content.replace("/print ", ""))
     if message.mention_everyone:
         bot.reply(message, "merci de ne pas ping everyone!")
         
