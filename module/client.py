@@ -4,6 +4,7 @@ import listener
 import channels
 import messages
 import general
+import embeds
 import invite
 import guild
 import user
@@ -11,7 +12,6 @@ import time
 import ast
 import sys
 import os
-
 
 class Client():
     def __init__(self, token, api_version=9):
@@ -46,8 +46,9 @@ class Client():
         url = f"https://discord.com/api/v{self.api_version}/users/{user.id}"
         return user.User(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     
-    def sendmessage(self, id, content, json={}):
-        if json == {} : json = {"content" : content}
+    def sendmessage(self, id, content, embed=None, json={}):
+        if json == {} and embed == None : json = {"content" : content}
+        if json == {} and embed != None : json = {"content" : content, embeds : [embed.getraw()]}
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}/messages"
         return messages.Message(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
     

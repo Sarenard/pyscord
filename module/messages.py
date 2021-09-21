@@ -15,6 +15,7 @@ class Message:
         self.channel_id = general.essai_element(message, "channel_id")
         self.guild_id = general.essai_element(message, "guild_id")
         self.author = user.User(general.essai_element(message, "author"), api_version=self.api_version, basic_header=self.basic_header)
+        self.is_bot = self.author.bot
         self.member = general.essai_element(message, "member")
         self.content = general.essai_element(message, "content")
         self.timestamp = general.essai_element(message, "timestamp")

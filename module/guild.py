@@ -86,7 +86,7 @@ class Guild:
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}"
         return channels.Channel(requests.get(url, headers=self.basic_header).json(), basic_header=self.basic_header)
         
-
+#TODO : enlever Guilds et pluutot renvoyer un array de Guild
 class Guilds():
     def __init__(self, liste, basic_header, api_version=9):
         self.liste = liste

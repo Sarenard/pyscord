@@ -9,7 +9,6 @@ async def on_ready():
 
 @pyscord.listener.event_message
 async def on_message(message):
-    if message.content.startswith("&"):
-        bot.reply(message, "le bot est off pour le moment, il est remplacé par ce message jusqu'a son rétablissement (si le bot normal marche merci de ping <@652889258343792661>)")
+    print(message.content)
         
 bot.run()

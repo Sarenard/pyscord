@@ -50,6 +50,7 @@ class Channel:
         url = f"https://discord.com/api/v{self.api_version}/channels/{self.id}/invites"
         return invite.Invite(requests.post(url, headers=self.basic_header, api_version=self.api_version, json=json).json())
     
+#TODO : enlever Channels et pluutot renvoyer un array de Channel
 class Channels:
     def __init__(self, liste, basic_header, api_version=9):
         self.raw = liste

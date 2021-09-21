@@ -6,6 +6,7 @@ import asyncio
 import json
 import time
 
+#TODO : clean event_message
 global func
 func=None
 def event_message(function_to_decorate=None, event=None):
@@ -19,6 +20,7 @@ def event_message(function_to_decorate=None, event=None):
         except:
             pass
 
+#TODO : clean event_on_ready
 global func2
 func2 = None
 def event_on_ready(function_to_decorate=None):
@@ -69,15 +71,15 @@ class Listener:
             event = Listener.recieve_json_response(ws)
             if event == None : return
             if event["t"] == "MESSAGE_CREATE" : event_message(event=event)
-            if event["op"]== 7: reconnection(ws)
+            if event["op"]== 7: Listener.reconnection(ws)
 
     def reconnection(ws):
-        payload = { "op": 6, "d": {"token": globals.token, "session_id": global_vars.bot_session_id, "seq": global_vars.s}}
-        send_json_request(ws,payload)
-        event = recieve_json_response(ws)
+        payload = { "op": 6, "d": {"token": globals.token, "session_id": 740600785221582978, "seq": 0}}
+        Listener.send_json_request(ws,payload)
+        event = Listener.recieve_json_response(ws)
         if event["op"] == 9:
             print("Perte de connection, tentative de reconnection")
-            identify(ws)
+            Listener.identify(ws)
         else:
             print("Perte de connection irrémédiable")
 
