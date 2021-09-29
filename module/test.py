@@ -1,7 +1,7 @@
 import important
 import pyscord
 
-bot = pyscord.Client(token=important.token)
+bot = pyscord.Client(token=important.token, id=877568674666524682, api_version=9)
 
 @pyscord.listener.event_on_ready
 async def on_ready():

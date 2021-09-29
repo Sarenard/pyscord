@@ -14,11 +14,12 @@ import sys
 import os
 
 class Client():
-    def __init__(self, token, api_version=9):
+    def __init__(self, token, id, api_version=9):
         self.token = token
         self.basic_header = {"Authorization": f"Bot {self.token}"}
         self.api_version = api_version
-        self.listener = listener.Listener(self.token, basic_head=self.basic_header, api_ver=self.api_version)
+        self.id = id
+        self.listener = listener.Listener(self.token, basic_head=self.basic_header, api_ver=self.api_version, id = self.id)
         
     def deleteguild(self, id):
         url = f"https://discord.com/api/v{self.api_version}/guilds/{id}"

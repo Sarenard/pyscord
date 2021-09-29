@@ -6,7 +6,7 @@ import asyncio
 import json
 import time
 
-#TODO : clean event_message
+#TODO : clean event_message (separate the decorator and the function)
 global func
 func=None
 def event_message(function_to_decorate=None, event=None):
@@ -20,7 +20,7 @@ def event_message(function_to_decorate=None, event=None):
         except:
             pass
 
-#TODO : clean event_on_ready
+#TODO : clean event_on_ready (separate the decorator and the function)
 global func2
 func2 = None
 def event_on_ready(function_to_decorate=None):
@@ -33,11 +33,12 @@ def event_on_ready(function_to_decorate=None):
             pass
 
 class Listener:
-    def __init__(self, token, basic_head=None, api_ver=9):
+    def __init__(self, token, basic_head=None, api_ver=9, id=0):
         global basic_header, api_version
         basic_header = basic_head
         api_version = api_ver
         self.token = token
+        self.id = id
 
     def send_json_request(ws, request):
         ws.send(json.dumps(request))
@@ -74,7 +75,7 @@ class Listener:
             if event["op"]== 7: Listener.reconnection(ws)
 
     def reconnection(ws):
-        payload = { "op": 6, "d": {"token": globals.token, "session_id": 740600785221582978, "seq": 0}}
+        payload = { "op": 6, "d": {"token": globals.token, "session_id": self.id, "seq": 0}}
         Listener.send_json_request(ws,payload)
         event = Listener.recieve_json_response(ws)
         if event["op"] == 9:
