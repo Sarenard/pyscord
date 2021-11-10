@@ -39,11 +39,9 @@ while True:
     commande = input("COMMANDE >>> ")
     if commande.startswith("/serveur"):
         change_serveur()
-    elif commande.startswith("/"):
-        pass
-    else:
+    elif not commande.startswith("/"):
         bot.sendmessage(data["chanid"], commande)
-        
+
 
 
 while True:

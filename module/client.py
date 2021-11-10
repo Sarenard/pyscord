@@ -48,7 +48,7 @@ class Client():
         return user.User(requests.get(url, headers=self.basic_header).json(), api_version=self.api_version, basic_header=self.basic_header)
     
     def sendmessage(self, id, content, embed=None, json={}):
-        if json == {} and embed == None : json = {"content" : content}
+        if json == {} and embed is None: json = {"content" : content}
         if json == {} and embed != None : json = {"content" : content, embeds : [embed.getraw()]}
         url = f"https://discord.com/api/v{self.api_version}/channels/{id}/messages"
         return messages.Message(requests.post(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
@@ -63,14 +63,20 @@ class Client():
         return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
 
     def changename(self, name):
-        json = {"username" : name}
-        url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
+        return self._extracted_from_changeavatar_2("username", name)
         
     def changeavatar(self, avatar):
-        json = {"avatar" : avatar}
-        url = f"https://discord.com/api/v{self.api_version}/users/@me"
-        return user.User(requests.patch(url, headers=self.basic_header, json=json).json(), api_version=self.api_version, basic_header=self.basic_header)
+        return self._extracted_from_changeavatar_2("avatar", avatar)
+
+    # TODO Rename this here and in `changename` and `changeavatar`
+    def _extracted_from_changeavatar_2(self, arg0, arg1):
+        json = {arg0: arg1}
+        url = f'https://discord.com/api/v{self.api_version}/users/@me'
+        return user.User(
+            requests.patch(url, headers=self.basic_header, json=json).json(),
+            api_version=self.api_version,
+            basic_header=self.basic_header,
+        )
 
     def createinvite(self, channel_id, json={}):
         url = f"https://discord.com/api/v{self.api_version}/channels/{channel_id}/invites"

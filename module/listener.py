@@ -70,7 +70,7 @@ class Listener:
     def listener(ws):
         while True:
             event = Listener.recieve_json_response(ws)
-            if event == None : return
+            if event is None: return
             if event["t"] == "MESSAGE_CREATE" : event_message(event=event)
             if event["op"]== 7: Listener.reconnection(ws)
 
